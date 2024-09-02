@@ -206,6 +206,10 @@ function RestaurantRecommender() {
   );
 }
 
+function sanitizeUrl(url) {
+  return url.replace(/^@+/, '').replace(/[@]+/g, '');
+}
+
 function RestaurantCard({ restaurant }) {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [yelpUrl, setYelpUrl] = useState(null);
@@ -275,6 +279,11 @@ function RestaurantCard({ restaurant }) {
     return `https://www.yelp.com/search?find_desc=${query}&find_loc=${location}`;
   };
 
+  console.log("Restaurant placeId:", restaurant.placeId);
+
+  const googleMapsUrl = sanitizeUrl(`https://www.google.com/maps/place/?q=place_id:${restaurant.placeId}`);
+  console.log("Google Maps URL:", googleMapsUrl);
+
   return (
     <div className="restaurant-card">
       <div className="restaurant-card-content">
@@ -301,7 +310,7 @@ function RestaurantCard({ restaurant }) {
         <div className="restaurant-info">
           <h2 className="restaurant-name">
             <a 
-              href={`https://www.google.com/maps/place/?q=place_id:${restaurant.placeId}`} 
+              href={googleMapsUrl}
               target="_blank" 
               rel="noopener noreferrer"
               className="restaurant-name-link"

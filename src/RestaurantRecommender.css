@@ -1,0 +1,293 @@
+/* Add this at the very beginning of your CSS file */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    line-height: 1.6;
+  }
+  
+  .restaurant-recommender {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .header h1 {
+    font-size: 4rem;
+    color: #FF9800;
+    margin-bottom: 10px;
+  }
+  
+  .header .subtitle {
+    font-size: 2rem;
+    color: #a0a0a0;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+  
+  .search-form {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* This ensures vertical alignment */
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+  
+  .input-group {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 15px 40px 15px 15px; /* Increased padding for better height */
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #333333;
+    height: 48px; /* Set a fixed height */
+    line-height: 48px; /* Match the height for text alignment */
+  }
+  
+  .input-group i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none; /* Ensures the icon doesn't interfere with input */
+  }
+  
+  .loading-indicator {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 0.8rem;
+  }
+  
+  .suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+  
+  .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  button {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px; /* Match the height of inputs (24px + 12px*2 padding) */
+    line-height: 48px; /* Ensures text is vertically centered */
+  }
+  
+  button:hover {
+    background-color: #F57C00;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .restaurant-card {
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .restaurant-card-content {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .restaurant-photo-container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  
+  .restaurant-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .photo-navigation {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+  
+  .photo-nav-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .restaurant-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .restaurant-name {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+  }
+  
+  .restaurant-name-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .restaurant-name-link:hover {
+    color: #FF9800;
+    text-decoration: underline;
+  }
+  
+  .restaurant-address {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 12px;
+  }
+  
+  .restaurant-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .rating-stars {
+    color: #FFD700;
+    margin-right: 8px;
+  }
+  
+  .rating-number {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  .review-count {
+    color: #cccccc;
+  }
+  
+  .review-summary {
+    background-color: #3a3a3a;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+  
+  .review-summary-text {
+    color: #e0e0e0;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .view-link {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+    background-color: #FF9800;
+    color: #000000;  /* Changed to black for better contrast */
+  }
+  
+  .view-link:hover {
+    background-color: #FFA726;
+  }
+  
+  footer {
+    margin-top: 40px;
+    color: #a0a0a0;
+    font-size: 1rem;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .recommendations {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+.wsie-logo {
+  width: 200px; /* Increased from 150px to 300px */
+  height: auto;
+  margin-bottom: 30px; /* Increased margin for better spacing */
+  max-width: 100%; /* Ensures the logo doesn't overflow on smaller screens */
+}

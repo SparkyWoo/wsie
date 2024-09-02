@@ -281,7 +281,12 @@ function RestaurantCard({ restaurant }) {
         <div className="restaurant-photo-container">
           {restaurant.photos && restaurant.photos.length > 0 ? (
             <>
-              <img src={restaurant.photos[currentPhotoIndex]} alt={restaurant.name} className="restaurant-photo" />
+              <img 
+                src={restaurant.photos[currentPhotoIndex]} 
+                alt={restaurant.name} 
+                className="restaurant-photo"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+              />
               {restaurant.photos.length > 1 && (
                 <div className="photo-navigation">
                   <button onClick={prevPhoto} className="photo-nav-button">&#8249;</button>

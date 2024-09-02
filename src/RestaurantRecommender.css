@@ -331,6 +331,12 @@ body {
 
   .recommendations {
     grid-template-columns: 1fr; /* Single column for mobile */
+    gap: 15px; /* Reduce gap for mobile */
+  }
+
+  .restaurant-card {
+    width: 100%; /* Ensure full width */
+    margin-bottom: 15px; /* Add some space between cards */
   }
 
   .restaurant-card-content {
@@ -345,12 +351,25 @@ body {
     margin-bottom: 15px;
   }
 
+  .restaurant-info {
+    width: 100%; /* Ensure full width */
+  }
+
   .restaurant-name {
-    font-size: 1.5rem;
+    font-size: 1.3rem; /* Slightly smaller font size for mobile */
   }
 
   .restaurant-address {
     font-size: 0.9rem;
+  }
+
+  .review-summary {
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .review-summary-text {
+    font-size: 0.85rem; /* Slightly smaller font size for mobile */
   }
 
   .view-link {
@@ -358,6 +377,36 @@ body {
     display: block;
     text-align: center;
     margin-top: 15px;
+    width: 100%; /* Full width button */
+  }
+}
+
+/* Add these new styles for better mobile layout */
+@media (max-width: 480px) {
+  .restaurant-recommender {
+    padding: 15px 10px;
+  }
+
+  .wsie-logo {
+    width: 120px; /* Even smaller logo for very small screens */
+  }
+
+  .restaurant-card {
+    border-radius: 8px; /* Slightly smaller border radius */
+  }
+
+  .restaurant-photo-container {
+    height: 150px; /* Smaller height for very small screens */
+  }
+
+  .restaurant-name {
+    font-size: 1.2rem;
+  }
+
+  .restaurant-address,
+  .restaurant-rating,
+  .review-summary-text {
+    font-size: 0.8rem;
   }
 }
 

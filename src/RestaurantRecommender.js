@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './RestaurantRecommender.css';
 import { useSwipeable } from 'react-swipeable';
+import { Helmet } from 'react-helmet';
 
 const API_URL = '/api/proxy';
 const SUMMARIZE_URL = '/api/summarize';
@@ -148,6 +149,27 @@ function RestaurantRecommender() {
 
   return (
     <div className="restaurant-recommender">
+      <Helmet>
+        <title>WSIE - Where Should I Eat? | Restaurant Recommendations</title>
+        <meta name="description" content="Find the best restaurants near you based on your preferences. WSIE helps you decide where to eat." />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "WSIE - Where Should I Eat?",
+              "url": "https://wsie.app/",
+              "description": "Find the best restaurants near you based on your preferences.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://wsie.app/search?location={location}&keywords={keywords}",
+                "query-input": "required name=location,keywords"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+
       <header className="header">
         <img src="/images/wsie-logo.png" alt="WSIE Logo" className="wsie-logo" />
       </header>
@@ -287,15 +309,16 @@ function RestaurantCard({ restaurant }) {
   });
 
   return (
-    <div className="restaurant-card">
+    <article className="restaurant-card">
       <div className="restaurant-card-content">
         <div className="restaurant-photo-container" {...handleSwipe}>
           {restaurant.photos && restaurant.photos.length > 0 ? (
             <>
               <img 
                 src={restaurant.photos[currentPhotoIndex]} 
-                alt={restaurant.name} 
+                alt={`${restaurant.name} - ${restaurant.address}`} 
                 className="restaurant-photo"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
               {restaurant.photos.length > 1 && (
                 <div className="photo-navigation">
@@ -320,9 +343,9 @@ function RestaurantCard({ restaurant }) {
               {restaurant.name}
             </a>
           </h2>
-          <p className="restaurant-address">{restaurant.address}</p>
+          <address className="restaurant-address">{restaurant.address}</address>
           <div className="restaurant-rating">
-            <span className="rating-stars">{'★'.repeat(Math.round(restaurant.rating))}</span>
+            <span className="rating-stars" aria-label={`${restaurant.rating} stars`}>{'★'.repeat(Math.round(restaurant.rating))}</span>
             <span className="rating-number">{restaurant.rating.toFixed(1)}</span>
             <span className="review-count">({restaurant.reviewCount || (restaurant.reviews && restaurant.reviews.length) || 0} reviews)</span>
           </div>
@@ -333,7 +356,7 @@ function RestaurantCard({ restaurant }) {
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

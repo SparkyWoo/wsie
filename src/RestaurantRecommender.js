@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './RestaurantRecommender.css';
+import { useSwipeable } from 'react-swipeable';
 
 const API_URL = '/api/proxy';
 const SUMMARIZE_URL = '/api/summarize';
@@ -206,10 +207,6 @@ function RestaurantRecommender() {
   );
 }
 
-function sanitizeUrl(url) {
-  return url.replace(/^@+/, '').replace(/[@]+/g, '');
-}
-
 function RestaurantCard({ restaurant }) {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [yelpUrl, setYelpUrl] = useState(null);
@@ -284,22 +281,27 @@ function RestaurantCard({ restaurant }) {
   const googleMapsUrl = sanitizeUrl(`https://www.google.com/maps/place/?q=place_id:${restaurant.placeId}`);
   console.log("Google Maps URL:", googleMapsUrl);
 
+  const handleSwipe = useSwipeable({
+    onSwipedLeft: nextPhoto,
+    onSwipedRight: prevPhoto,
+  });
+
   return (
     <div className="restaurant-card">
       <div className="restaurant-card-content">
-        <div className="restaurant-photo-container">
+        <div className="restaurant-photo-container" {...handleSwipe}>
           {restaurant.photos && restaurant.photos.length > 0 ? (
             <>
               <img 
                 src={restaurant.photos[currentPhotoIndex]} 
                 alt={restaurant.name} 
                 className="restaurant-photo"
-                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
               {restaurant.photos.length > 1 && (
                 <div className="photo-navigation">
-                  <button onClick={prevPhoto} className="photo-nav-button">&#8249;</button>
-                  <button onClick={nextPhoto} className="photo-nav-button">&#8250;</button>
+                  <button onClick={prevPhoto} className="photo-nav-button prev">&#10094;</button>
+                  <span className="photo-counter">{currentPhotoIndex + 1} of {restaurant.photos.length}</span>
+                  <button onClick={nextPhoto} className="photo-nav-button next">&#10095;</button>
                 </div>
               )}
             </>
@@ -331,9 +333,12 @@ function RestaurantCard({ restaurant }) {
           )}
         </div>
       </div>
-      {/* Remove the View on Google Maps button */}
     </div>
   );
+}
+
+function sanitizeUrl(url) {
+  return url.replace(/^@+/, '').replace(/[@]+/g, '');
 }
 
 export default RestaurantRecommender;

@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const YELP_API_KEY = process.env.YELP_API_KEY;
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const { name, address } = req.query;
   
   if (!YELP_API_KEY) {

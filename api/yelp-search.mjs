@@ -1,8 +1,8 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const YELP_API_KEY = process.env.YELP_API_KEY;
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   const { name, address } = req.query;
   
   if (!YELP_API_KEY) {
